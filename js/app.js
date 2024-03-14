@@ -1,7 +1,9 @@
 const gridDomEl = document.querySelector(".grid");
 const buttonDomEl = document.querySelector("button");
 const selectDomEl = document.getElementById("select-difficulty");
+const pDomElement = document.getElementById("iter");
 const bombs = [1,5,11,23,44,49,23,35]
+let clickedCells = [];
 
 startGame();
 
@@ -13,10 +15,13 @@ function startGame(){
     const selectDomElValue = selectDomEl.value;
     
     gridDomEl.innerHTML = "";
+    clickedCells = [];
+    gridDomEl.style.pointerEvents = "auto";
+    pDomElement.innerText = "";
     
     for(let i = 0; i < numOfCell; i++){
         const num = i + 1;
-    
+
         const cellEl = document.createElement("div");
         cellEl.classList.add("cell");
         cellEl.innerHTML = num;
@@ -26,12 +31,26 @@ function startGame(){
     
         cellEl.addEventListener("click", function(){
             console.log(num);
-            
-            if(bombs.includes(num)){
-                cellEl.style.backgroundColor = "red";
+
+            if(clickedCells.includes(num)){
+                alert("non puoi cliccare due volte la stessa casella")
             }
             else{
-                cellEl.classList.toggle("bg-sky-blue");
+                clickedCells.push(num);
+            }
+
+            console.log(clickedCells) 
+
+            if(bombs.includes(num)){
+                cellEl.style.backgroundColor = "red";
+                pDomElement.innerText = `
+                HAI PERSO!
+                Punteggio: ${thisIsScore()}
+                `;
+                gridDomEl.style.pointerEvents = "none";
+            }
+            else{
+                cellEl.classList.add("bg-sky-blue");
             }
         })
     }
@@ -61,3 +80,9 @@ function getSize(){
 //         cellEl.classList.toggle("bg-sky-blue");
 //     }
 // }
+
+function thisIsScore(){
+    const score = clickedCells.length -1;
+    
+    return score;
+}

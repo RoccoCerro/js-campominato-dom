@@ -43,6 +43,12 @@ img{
 .grid-section{
     background-color: #7FFFD4;
     padding: 50px 0;
+
+    & #iter{
+        text-align: center;
+        padding-top: 25px;
+        font-size: 30px ;
+    }
 }
 
 .grid{
