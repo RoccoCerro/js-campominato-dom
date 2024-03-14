@@ -1,6 +1,7 @@
 const gridDomEl = document.querySelector(".grid");
 const buttonDomEl = document.querySelector("button");
 const selectDomEl = document.getElementById("select-difficulty");
+const bombs = [1,5,11,23,44,49,23,35]
 
 startGame();
 
@@ -25,7 +26,13 @@ function startGame(){
     
         cellEl.addEventListener("click", function(){
             console.log(num);
-            cellEl.classList.toggle("bg-sky-blue");
+            
+            if(bombs.includes(num)){
+                cellEl.style.backgroundColor = "red";
+            }
+            else{
+                cellEl.classList.toggle("bg-sky-blue");
+            }
         })
     }
 }
@@ -45,3 +52,12 @@ function getSize(){
 
     return size;
 }
+
+// function thisIsABomb(number){
+//     if(bombs.includes(number)){
+//         cellEl.style.backgroundColor = "red";
+//     }
+//     else{
+//         cellEl.classList.toggle("bg-sky-blue");
+//     }
+// }
