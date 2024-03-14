@@ -12,15 +12,6 @@ function startGame(){
     const selectDomElValue = selectDomEl.value;
     
     gridDomEl.innerHTML = "";
-
-    // if(selectDomElValue === "medium"){
-    //     size = 9;
-    //     numOfCell = size ** 2;
-    // }
-    // else if(selectDomElValue === "easy"){
-    //     size = 10;
-    //     numOfCell = size ** 2;
-    // }
     
     for(let i = 0; i < numOfCell; i++){
         const num = i + 1;
@@ -31,13 +22,6 @@ function startGame(){
         cellEl.style.width = `calc(100% / ${size})`;
     
         gridDomEl.append(cellEl);
-
-        // if(selectDomElValue === "medium"){
-        //     cellEl.classList.add("size-medium");
-        // }
-        // else if(selectDomElValue === "easy"){
-        //     cellEl.classList.add("size-hard");
-        // }
     
         cellEl.addEventListener("click", function(){
             console.log(num);
