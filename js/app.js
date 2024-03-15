@@ -18,7 +18,7 @@ function startGame() {
 
     let bombs = [];
     bombs = bombRandom(bombs);
-    console.log(bombs)
+    console.log("Bombe: ",bombs)
     gridDomEl.innerHTML = "";
     clickedCells = [];
     gridDomEl.style.pointerEvents = "auto";
@@ -38,7 +38,7 @@ function startGame() {
         gridDomEl.append(cellEl);
 
         cellEl.addEventListener("click", function () {
-            console.log(num);
+            console.log("numero ",num);
 
             if (clickedCells.includes(num)) {
                 alert("non puoi cliccare due volte la stessa casella")
@@ -47,7 +47,7 @@ function startGame() {
                 clickedCells.push(num);
             }
 
-            console.log(clickedCells)
+            console.log("celle cliccate ",clickedCells)
 
             if (bombs.includes(num)) {
                 cellEl.style.backgroundColor = "red";
@@ -59,14 +59,13 @@ function startGame() {
                 finish = true;
 
                 let divCell = document.querySelectorAll(".cell");
-                console.log(divCell)
                 
                 for (let x = 0; x < numOfCell; x++) {
                     if (bombs.includes(x+1)) {
                         divCell[x].style.backgroundColor = "red";
                     }
                 }              
-            }
+            }                                                           
             else if (numOfCell - bombs.length === clickedCells.length) {
                 gridDomEl.style.pointerEvents = "none";
                 cellEl.classList.add("bg-sky-blue");
@@ -78,17 +77,6 @@ function startGame() {
             }
             else {
                 cellEl.classList.add("bg-sky-blue");
-            }
-
-            let divCell = document.querySelectorAll(".cell");
-            console.log(divCell)
-            if (finish === true) {
-                for (let x = 0; x < numOfCell; x++) {
-                    if (bombs.includes(x+1)) {
-                        divCell[x].style.backgroundColor = "red";
-                        console.log(++x)
-                    }
-                }
             }
 
             // showTheBombs(cellEl)
