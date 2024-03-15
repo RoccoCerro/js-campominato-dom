@@ -11,44 +11,45 @@ startGame();
 
 buttonDomEl.addEventListener("click", startGame);
 
-function startGame(){
+function startGame() {
     size = getSize();
     numOfCell = size ** 2;
     const selectDomElValue = selectDomEl.value;
-    
+
     let bombs = [];
     bombs = bombRandom(bombs);
+    console.log(bombs)
     gridDomEl.innerHTML = "";
     clickedCells = [];
     gridDomEl.style.pointerEvents = "auto";
     pDomElement.innerText = "";
-    
+
     // console.log(bombRandom(bombs));
     // console.log(numOfCell)
 
-    for(let i = 0; i < numOfCell; i++){
+    for (let i = 0; i < numOfCell; i++) {
         const num = i + 1;
 
         const cellEl = document.createElement("div");
         cellEl.classList.add("cell");
         cellEl.innerHTML = num;
         cellEl.style.width = `calc(100% / ${size})`;
-    
+
         gridDomEl.append(cellEl);
-    
-        cellEl.addEventListener("click", function(){
+
+        cellEl.addEventListener("click", function () {
             console.log(num);
 
-            if(clickedCells.includes(num)){
+            if (clickedCells.includes(num)) {
                 alert("non puoi cliccare due volte la stessa casella")
             }
-            else{
+            else {
                 clickedCells.push(num);
             }
 
-            console.log(clickedCells) 
+            console.log(clickedCells)
 
-            if(bombs.includes(num)){
+            if (bombs.includes(num)) {
                 cellEl.style.backgroundColor = "red";
                 pDomElement.innerText = `
                 HAI PERSO!
@@ -56,8 +57,17 @@ function startGame(){
                 `;
                 gridDomEl.style.pointerEvents = "none";
                 finish = true;
+
+                let divCell = document.querySelectorAll(".cell");
+                console.log(divCell)
+                
+                for (let x = 0; x < numOfCell; x++) {
+                    if (bombs.includes(x+1)) {
+                        divCell[x].style.backgroundColor = "red";
+                    }
+                }              
             }
-            else if(numOfCell - bombs.length === clickedCells.length){
+            else if (numOfCell - bombs.length === clickedCells.length) {
                 gridDomEl.style.pointerEvents = "none";
                 cellEl.classList.add("bg-sky-blue");
                 pDomElement.innerText = `
@@ -66,8 +76,19 @@ function startGame(){
                 `;
                 finish = true;
             }
-            else{
+            else {
                 cellEl.classList.add("bg-sky-blue");
+            }
+
+            let divCell = document.querySelectorAll(".cell");
+            console.log(divCell)
+            if (finish === true) {
+                for (let x = 0; x < numOfCell; x++) {
+                    if (bombs.includes(x+1)) {
+                        divCell[x].style.backgroundColor = "red";
+                        console.log(++x)
+                    }
+                }
             }
 
             // showTheBombs(cellEl)
@@ -75,15 +96,27 @@ function startGame(){
     }
 }
 
-function getSize(){
+// let divCell = document.querySelectorAll(".cell");
+// if (finish === true) {
+//     for (let x = 0; x < bombs.length; x++) {
+//         if (bombs.includes(x)) {
+//             divCell[x].style.backgroundColor = "red";
+//         }
+//     }
+// }
+// console.log(divCell[1]);
+
+
+
+function getSize() {
     let size = 7;
     const selectDomElValue = selectDomEl.value
 
-    if(selectDomElValue === "medium"){
+    if (selectDomElValue === "medium") {
         size = 9;
         // numOfCell = size ** 2;
     }
-    else if(selectDomElValue === "easy"){
+    else if (selectDomElValue === "easy") {
         size = 10;
         // numOfCell = size ** 2;
     }
@@ -91,16 +124,16 @@ function getSize(){
     return size;
 }
 
-function thisIsScore(){
+function thisIsScore() {
     const score = clickedCells.length;
-    
+
     return score;
 }
 
-function bombRandom(array){
-    while(array.length < 16){
+function bombRandom(array) {
+    while (array.length < 16) {
         const numOfBomb = Math.floor(Math.random() * numOfCell) + 1;
-        if(array.includes(numOfBomb) === false){
+        if (array.includes(numOfBomb) === false) {
             array.push(numOfBomb);
         }
     }
@@ -115,7 +148,7 @@ function bombRandom(array){
 //             if (cell.innerText === bombs[w]){
 //                 alert("finish")
 //             }
-//         }    
+//         }
 //     }
 // }
 
